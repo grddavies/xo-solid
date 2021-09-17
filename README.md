@@ -2,7 +2,7 @@
 
 ## Overview
 
-`xo-solid` is a tic-tac-toe (Noughts & Crosses) web game built using [SolidJS](solidjs.com) based on the [React tutorial](https://reactjs.org/tutorial/tutorial.html).
+`xo-solid` is a tic-tac-toe (Noughts & Crosses) web game built using [SolidJS](https://solidjs.com) based on the [React tutorial](https://reactjs.org/tutorial/tutorial.html).
 
 ## Dev
 
@@ -28,7 +28,7 @@ The page will reload if you make edits.
 
 ### `pnpm run build`
 
-Builds the app for production to the `dist` folder.
+Builds the app for production to the `dist` folder using [Vite](https://vitejs.dev/).
 
 It correctly bundles Solid in production mode and optimizes the build for the best performance.
 
