@@ -6,8 +6,7 @@ import {
   getWinningLine,
 } from "../utils/game-utils";
 import { SquareVal } from "./Square";
-// import createLocalStore from "../utils/createLocalStore";
-import { createStore } from "solid-js/store";
+import createLocalStore from "../utils/createLocalStore";
 
 interface Game {
   history: SquareVal[][];
@@ -21,7 +20,7 @@ const Game: Component = () => {
     currentMoveNum: 0,
     winner: null,
   };
-  const [state, setState] = createStore(initState),
+  const [state, setState] = createLocalStore(initState),
     [current, setCurrent] = createSignal(state.history[state.currentMoveNum]),
     initGame = () => {
       setState({
