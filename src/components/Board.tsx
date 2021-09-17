@@ -17,15 +17,15 @@ const Board: Component<BoardProps> = (props: BoardProps) => {
           <div className="board-row">
             <For each={cols}>
               {(j) => {
-                console.log("squid:", 3*i+j, "=", props.squares[3 * i + j])
                 return (
-                <Square
-                  id={3 * i + j}
-                  value={props.squares[3 * i + j]}
-                  inWinningLine={props.winningLine.includes(3 * i + j)}
-                  onClick={() => props.onClick(3 * i + j)}
-                />
-              )}}
+                  <Square
+                    id={3 * i + j}
+                    value={props.squares[3 * i + j]}
+                    inWinningLine={props.winningLine.includes(3 * i + j)}
+                    onClick={() => props.onClick(3 * i + j)}
+                  />
+                );
+              }}
             </For>
           </div>
         )}
@@ -34,4 +34,4 @@ const Board: Component<BoardProps> = (props: BoardProps) => {
   );
 };
 
-export { Board };
+export default Board;
