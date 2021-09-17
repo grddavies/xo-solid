@@ -1,7 +1,7 @@
 {
-  "name": "vite-template-solid",
+  "name": "xo-solid",
   "version": "0.0.0",
-  "description": "",
+  "description": "tic-tac-toe in SolidJS",
   "scripts": {
     "start": "vite",
     "dev": "vite",
