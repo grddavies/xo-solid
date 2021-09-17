@@ -1,5 +1,5 @@
-import { Component, createEffect, createMemo, Show } from "solid-js";
-import { Board } from "./Board";
+import { Component, createMemo, createSignal, Show } from "solid-js";
+import Board from "./Board";
 import {
   calculateWinner,
   getMoveHistory,
@@ -12,44 +12,49 @@ import { createStore } from "solid-js/store";
 interface Game {
   history: SquareVal[][];
   currentMoveNum: number;
-  winner: SquareVal
+  winner: SquareVal;
 }
 
 const Game: Component = () => {
-  // set up game state
-  let initState: Game = {
+  const initState: Game = {
     history: [Array(9).fill(null)],
     currentMoveNum: 0,
-    winner: null
+    winner: null,
   };
-  const [state, setState] = createStore(initState);
-  const lastMoveNum = createMemo(() => state.history.length);
-  const moveHistory = createMemo(() => getMoveHistory(state.history));
-  const winningLine = createMemo(() => getWinningLine(state.history[state.currentMoveNum]))
-  // function to handle clicks on squares based on turn
-  const handleClick = (i: number) => {
-    console.log("called handleClick")
-    const current = state.history[state.currentMoveNum];
-    const squares = current.slice();
-    // ignore clicks on filled squares or after end
-    if (calculateWinner(squares) || squares[i]) {
-      return;
-    }
-    // update square being clicked
-    squares[i] = state.currentMoveNum % 2 === 0 ? "X" : "O";
-
-    setState((state) => ({
-      history: state.history.concat([squares]),
-      currentMoveNum: state.currentMoveNum + 1,
-      winner: calculateWinner(squares)
-    }));
-  };
-
+  const [state, setState] = createStore(initState),
+    [current, setCurrent] = createSignal(state.history[state.currentMoveNum]),
+    initGame = () => {
+      setState({
+        history: [Array(9).fill(null)],
+        currentMoveNum: 0,
+        winner: null,
+      });
+      setCurrent(Array(9).fill(null));
+    },
+    lastMoveNum = createMemo(() => state.history.length),
+    moveHistory = createMemo(() => getMoveHistory(state.history)),
+    winningLine = createMemo(() => getWinningLine(current())),
+    handleClick = (i: number) => {
+      const squares = current().slice();
+      // ignore clicks on filled squares or after end
+      if (calculateWinner(squares) || squares[i]) {
+        return;
+      }
+      // update square being clicked
+      squares[i] = state.currentMoveNum % 2 === 0 ? "X" : "O";
+      setState((state) => ({
+        history: state.history.concat([squares]),
+        currentMoveNum: state.currentMoveNum + 1,
+        winner: calculateWinner(squares),
+      }));
+      setCurrent(squares);
+    };
   return (
     <div className="game">
+      <button onclick={() => initGame()}>New Game</button>
       <div className="game-board">
         <Board
-          squares={state.history[state.currentMoveNum]}
+          squares={current()}
           onClick={(i) => handleClick(i)}
           winningLine={winningLine()}
         />
