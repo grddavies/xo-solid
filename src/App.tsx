@@ -7,7 +7,7 @@ const App: Component = () => {
     <Container fluid={true}>
       <Row>
         <Col width="6" className="offset-3">
-          <h1>Let's play Noughts & Crosses</h1>
+          <h1 className="text-center">Noughts & Crosses</h1>
           <Game></Game>
         </Col>
       </Row>
