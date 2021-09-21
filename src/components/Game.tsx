@@ -59,14 +59,16 @@ const Game: Component = () => {
     <Row>
       <Row>
         <Col className="d-flex justify-content-center">
-    <div className="game">
-      <button onclick={() => initGame()}>New Game</button>
-      <div className="game-board">
-        <Board
-          squares={current()}
-          onClick={(i) => handleClick(i)}
-          winningLine={winningLine()}
-        />
+          <div className="game-info">
+            <Switch
+              fallback={
+                "Next player: " + (state.currentMoveNum % 2 === 0 ? "X" : "O")
+              }
+            >
+              <Match when={state.winner}>{"Winner: " + state.winner}</Match>
+              <Match when={state.history.length === 10}>{"It's a draw"}</Match>
+            </Switch>
+          </div>
         </Col>
       </Row>
       <Row className="game-board">
