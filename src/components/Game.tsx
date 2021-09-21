@@ -1,5 +1,12 @@
-import { Component, createMemo, createSignal, Show } from "solid-js";
-import Board from "./Board";
+import {
+  Component,
+  createMemo,
+  createSignal,
+  Show,
+  Switch,
+  Match,
+} from "solid-js";
+import { Board, Col, Row } from "./index";
 import {
   calculateWinner,
   getMoveHistory,
@@ -49,21 +56,45 @@ const Game: Component = () => {
       setCurrent(squares);
     };
   return (
-    <div className="game">
-      <button onclick={() => initGame()}>New Game</button>
-      <div className="game-board">
-        <Board
-          squares={current()}
-          onClick={(i) => handleClick(i)}
-          winningLine={winningLine()}
-        />
-      </div>
-      <div className="game-info">
-        <Show when={!state.winner} fallback={"Winner: " + state.winner}>
-          {"Next player: " + (state.currentMoveNum % 2 === 0 ? "X" : "O")}
-        </Show>
-      </div>
-    </div>
+    <Row>
+      <Row>
+        <Col className="d-flex justify-content-center">
+          <div className="game-info">
+            <Switch
+              fallback={
+                "Next player: " + (state.currentMoveNum % 2 === 0 ? "X" : "O")
+              }
+            >
+              <Match when={state.winner}>{"Winner: " + state.winner}</Match>
+              <Match when={state.history.length === 10}>{"It's a draw"}</Match>
+            </Switch>
+          </div>
+        </Col>
+      </Row>
+      <Row className="game-board">
+        <Col className="d-flex justify-content-center">
+          <Board
+            squares={current()}
+            onClick={(i) => handleClick(i)}
+            winningLine={winningLine()}
+          />
+        </Col>
+      </Row>
+      <Row>
+        <Col className="d-flex justify-content-center">
+          <div className="game-ctrl">
+            <Show when={state.currentMoveNum > 0}>
+              <button
+                class="btn btn-sm btn-outline-dark"
+                onclick={() => initGame()}
+              >
+                New Game
+              </button>
+            </Show>
+          </div>
+        </Col>
+      </Row>
+    </Row>
   );
 };
 
