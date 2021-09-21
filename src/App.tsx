@@ -1,13 +1,17 @@
 import type { Component } from "solid-js";
 
-import Game from "./components/Game";
+import { Row, Game, Container, Col } from "./components";
 
 const App: Component = () => {
   return (
-    <div>
-      <h1>Let's play Noughts & Crosses</h1>
-      <Game></Game>
-    </div>
+    <Container fluid={true}>
+      <Row>
+        <Col width="6" className="offset-3">
+          <h1>Let's play Noughts & Crosses</h1>
+          <Game></Game>
+        </Col>
+      </Row>
+    </Container>
   );
 };
 

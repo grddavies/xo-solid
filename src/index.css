@@ -54,5 +54,9 @@ ol, ul {
 }
 
 .game-info {
-  margin-left: 20px;
+  padding: 8px;
+}
+
+.game-ctrl {
+  padding: 8px;
 }
