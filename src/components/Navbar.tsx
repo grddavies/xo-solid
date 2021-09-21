@@ -1,5 +1,5 @@
 import { Component } from "solid-js";
-import SolidLogo from "./Solidlogo";
+import SolidLogo from "./SolidLogo";
 const Navbar: Component = () => (
   <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
     <div class="container-fluid">
